@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace JazzyLucas.Core.Input
 {
-    public abstract class InputPoller
+    public class InputPoller
     {
         private readonly InputActions _inputActions;
 
