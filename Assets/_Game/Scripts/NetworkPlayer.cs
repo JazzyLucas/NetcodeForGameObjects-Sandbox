@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class NetworkPlayer : MonoBehaviour
+public class NetworkPlayer : NetworkBehaviour
 {
-    [field: SerializeField] public UnityEngine.CharacterController characterController { get; private set; }
+    [field: SerializeField] public CharacterController characterController { get; private set; }
     [field: SerializeField] public Transform viewTransform { get; private set; }
     
     private MovementController _characterController;

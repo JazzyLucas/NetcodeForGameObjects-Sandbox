@@ -12,18 +12,18 @@ public class MovementController : InputPoller
     private float lerpValueForWalkingAndFlying = 0f;
     private bool isFlying;
     
-    private readonly UnityEngine.CharacterController _characterController;
+    private readonly CharacterController _characterController;
     private Transform _forwardTransform => _characterController.transform;
 
     // Constructor
-    public MovementController(UnityEngine.CharacterController characterController) : base()
+    public MovementController(CharacterController characterController) : base()
     {
         _characterController = characterController;
     }
     
     private float walkSpeed = 1;
     private float runSpeed = 2;
-    private float jumpSpeed = 1;
+    private float jumpSpeed = 5;
     private float flySpeed = 2;
     private float fastFlySpeed = 4;
     private float flyUpSpeed => jumpSpeed; // TODO:
