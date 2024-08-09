@@ -1,26 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using JazzyLucas.Core.Input;
 using JazzyLucas.Core.Utils;
 using UnityEngine;
 
-public class ViewController : InputPoller
+public class ViewController : MonoBehaviour
 {
+    [field: SerializeField] public Transform ViewTransform { get; private set; }
+
+    private InputPoller inputPoller;
+    
     private Angle yaw;
-    public Angle GetYaw() => _viewTransform.rotation.eulerAngles.x;
+    public Angle GetYaw() => ViewTransform.rotation.eulerAngles.x;
     private Angle pitch;
-    public Angle GetPitch() => _viewTransform.rotation.eulerAngles.y;
+    public Angle GetPitch() => ViewTransform.rotation.eulerAngles.y;
 
-    private readonly Transform _viewTransform;
-
-    public ViewController(Transform viewTransform) : base()
+    private void Awake()
     {
-        _viewTransform = viewTransform;
+        inputPoller = new();
     }
-        
+
+    private void Update()
+    {
+        Process();
+    }
+
     public void Process()
     {
-        var input = PollInput();
+        var input = inputPoller.PollInput();
         DoRotateCamera(input.MouseDelta);
     }
         
@@ -32,7 +40,6 @@ public class ViewController : InputPoller
         pitch = AngleUtil.CustomClampAngle(pitch);
             
         var rotation = Quaternion.Euler((float)pitch, (float)yaw, 0);
-        _viewTransform.rotation = rotation;
+        ViewTransform.rotation = rotation;
     }
-
 }

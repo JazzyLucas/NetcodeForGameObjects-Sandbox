@@ -237,6 +237,8 @@ GameObject:
   - component: {fileID: 1933129469510687642}
   - component: {fileID: 8369091523239512492}
   - component: {fileID: 2585995858435524773}
+  - component: {fileID: 773127679714838576}
+  - component: {fileID: 4493648729973321812}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -272,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2434967390
+  GlobalObjectIdHash: 687989576
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -293,5 +295,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d45c37042366b4387aac62fe800fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterController: {fileID: 773127679714838576}
+  _viewController: {fileID: 4493648729973321812}
+--- !u!114 &773127679714838576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711495077746049214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2cbbddacfb64bf4af33af70173459f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   <characterController>k__BackingField: {fileID: 5667415023536918877}
+  <directionTransform>k__BackingField: {fileID: 178641681779997442}
+--- !u!114 &4493648729973321812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711495077746049214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3933fdd8d122a49b1475acf4f93952, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   <viewTransform>k__BackingField: {fileID: 178641681779997442}
