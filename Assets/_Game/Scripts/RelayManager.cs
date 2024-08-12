@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using JazzyLucas.Core.Utils;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -10,63 +12,74 @@ using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
+using L = JazzyLucas.Core.Utils.Logger;
 
-public class RelayManager : MonoBehaviour
+public class RelayManager : Singleton<RelayManager>
 {
-    private void Awake()
+    private const string JOINCODE_FILE_NAME = "JoinCode.txt";
+    
+    private UnityTransport UnityTransport => NetworkManager.Singleton.GetComponent<UnityTransport>();
+
+    protected override void Init()
     {
     }
 
-    private void Start()
+    public async Task<string> StartHostWithRelay(int maxConnections = 5)
     {
-    }
-
-    /// <summary>
-    /// Creates a relay server allocation and start a host
-    /// </summary>
-    /// <param name="maxConnections">The maximum amount of clients that can connect to the relay</param>
-    /// <returns>The join code</returns>
-    public async Task<string> StartHostWithRelay(int maxConnections=5)
-    {
-        //Initialize the Unity Services engine
+        L.Log("Starting host with Relay...");
+        
         await UnityServices.InitializeAsync();
-        //Always authenticate your users beforehand
-        if (!AuthenticationService.Instance.IsSignedIn)
-        {
-            //If not already logged, log the user in
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        }
+        await HandleSignOn();
 
-        // Request allocation and join code
-        Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
+        var allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
         var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-        // Configure transport
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
-        // Start host
-        return NetworkManager.Singleton.StartHost() ? joinCode : null;
+        UnityTransport.SetRelayServerData(new(allocation, "dtls"));
+
+        if (NetworkManager.Singleton.StartHost())
+        {
+            // Save join code to a file in the Assets folder
+            var filePath = Path.Combine(Path.GetDirectoryName(Application.dataPath) ?? throw new InvalidOperationException(), JOINCODE_FILE_NAME);
+            await File.WriteAllTextAsync(filePath, joinCode);
+        
+            L.Log("Started host with Relay");
+            return joinCode;
+        }
+        
+        L.Log("Failed to start host with Relay");
+        return null;
     }
 
-    /// <summary>
-    /// Join a Relay server based on the JoinCode received from the Host or Server
-    /// </summary>
-    /// <param name="joinCode">The join code generated on the host or server</param>
-    /// <returns>True if the connection was successful</returns>
-    public async Task<bool> StartClientWithRelay(string joinCode)
+    public async Task<bool> StartClientWithRelay()
     {
-        //Initialize the Unity Services engine
+        L.Log("Starting client with Relay...");
+        
         await UnityServices.InitializeAsync();
-        //Always authenticate your users beforehand
+        await HandleSignOn();
+
+        // Read join code from file in the Assets folder
+        var filePath = Path.Combine(Path.GetDirectoryName(Application.dataPath) ?? throw new InvalidOperationException(), JOINCODE_FILE_NAME);
+        string joinCode = await File.ReadAllTextAsync(filePath);
+
+        var allocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
+        UnityTransport.SetRelayServerData(new(allocation, "dtls"));
+        
+        L.Log("Started client with Relay");
+
+        return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
+    }
+
+    // ReSharper disable once MemberCanBeMadeStatic.Local
+    private async Task HandleSignOn()
+    {
         if (!AuthenticationService.Instance.IsSignedIn)
         {
-            //If not already logged, log the user in
+            L.Log("Signing into Relay anon...");
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            L.Log("Signed into Relay anon.");
         }
-
-        // Join allocation
-        var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
-        // Configure transport
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
-        // Start client
-        return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
+        else
+        {
+            L.Log("Already signed into Relay anon.");
+        }
     }
 }
