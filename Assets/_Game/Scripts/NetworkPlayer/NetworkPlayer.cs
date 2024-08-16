@@ -9,8 +9,13 @@ using UnityEngine;
 [RequireComponent(typeof(ViewController))]
 public class NetworkPlayer : NetworkBehaviour
 {
-    public MovementController movementController { get; private set; }
-    public ViewController viewController { get; private set; }
+    private HologramsContainer hologramsContainer => CoreManager.Instance.GetContainer(typeof(HologramsContainer)) as HologramsContainer;
+    private HologramsManager hologramsManager => this.hologramsContainer.Manager;
+    
+    [field: SerializeField] public Transform NameHologramAnchorPoint { get; private set; }
+
+    [field: HideInInspector] public MovementController movementController { get; private set; }
+    [field: HideInInspector] public ViewController viewController { get; private set; }
     
     private void Awake()
     {
@@ -25,6 +30,7 @@ public class NetworkPlayer : NetworkBehaviour
             movementController.enabled = false;
             viewController.enabled = false;
         }
+        hologramsManager.CreateTextHologram(NameHologramAnchorPoint);
     }
 
     

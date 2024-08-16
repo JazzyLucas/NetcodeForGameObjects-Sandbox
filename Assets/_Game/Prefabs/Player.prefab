@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 748132978935063228}
   m_Layer: 0
-  m_Name: HologramPoint
+  m_Name: Name HologramPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,6 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d45c37042366b4387aac62fe800fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <NameHologramAnchorPoint>k__BackingField: {fileID: 748132978935063228}
 --- !u!114 &1194621372172997411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,6 +406,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DirectionTransform>k__BackingField: {fileID: 178641681779997442}
   <CharacterController>k__BackingField: {fileID: 5667415023536918877}
+  <walkSpeed>k__BackingField: 2
+  <runSpeed>k__BackingField: 4
+  <jumpForce>k__BackingField: 1
+  <flySpeed>k__BackingField: 4
 --- !u!114 &1362974500925719380
 MonoBehaviour:
   m_ObjectHideFlags: 0
