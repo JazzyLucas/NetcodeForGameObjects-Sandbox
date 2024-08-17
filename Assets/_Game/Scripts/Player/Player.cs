@@ -5,21 +5,19 @@ using JazzyLucas.Core;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 using L = JazzyLucas.Core.Utils.Logger;
 
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(ViewController))]
+[RequireComponent(typeof(PlayerHologramsController))]
 public class Player : NetworkBehaviour
 {
-    private HologramsContainer hologramsContainer => CoreManager.Instance.GetContainer(typeof(HologramsContainer)) as HologramsContainer;
-    private HologramsManager hologramsManager => this.hologramsContainer.Manager;
-    
-    [field: SerializeField] public Transform NameHologramAnchorPoint { get; private set; }
-
     [field: HideInInspector] public MovementController movementController { get; private set; }
     [field: HideInInspector] public ViewController viewController { get; private set; }
+    [field: HideInInspector] public PlayerHologramsController hologramsController { get; private set; }
     
-    public NetworkVariable<FixedString64Bytes> playerName = new (
+    [field: HideInInspector] public NetworkVariable<FixedString64Bytes> Name = new (
         readPerm: NetworkVariableReadPermission.Everyone,
         writePerm: NetworkVariableWritePermission.Owner
     );
@@ -28,30 +26,31 @@ public class Player : NetworkBehaviour
     {
         movementController = GetComponent<MovementController>();
         viewController = GetComponent<ViewController>();
+        hologramsController = GetComponent<PlayerHologramsController>();
     }
 
     public override void OnNetworkSpawn()
     {
-        var playerNameHologram = hologramsManager.CreateTextHologram(NameHologramAnchorPoint);
-        playerNameHologram.Text.text = playerName.Value.ToString();
-        playerName.OnValueChanged += (oldValue, newValue) =>
-        {
-            playerNameHologram.Text.text = newValue.ToString();
-        };
-        
         if (!IsOwner)
         {
+            // TODO: disable hologramController
             movementController.enabled = false;
             viewController.enabled = false;
         }
         if (IsOwner)
         {
             var newName = NameGenerator.GenerateFirstName();
-            playerName.Value = newName;
+            Name.Value = newName;
             L.Log($"Client-side name: {newName}");
         }
+        hologramsController.Init(Name);
     }
-    
+
+    private void LateUpdate()
+    {
+        
+    }
+
     #region Back and Forth RPC Example
     [Rpc(SendTo.ClientsAndHost)]
     private void TestClientRpc(int value, ulong sourceNetworkObjectId)

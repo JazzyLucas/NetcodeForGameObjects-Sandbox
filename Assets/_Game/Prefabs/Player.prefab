@@ -333,8 +333,9 @@ GameObject:
   - component: {fileID: 1933129469510687642}
   - component: {fileID: 8369091523239512492}
   - component: {fileID: 2585995858435524773}
-  - component: {fileID: 1194621372172997411}
   - component: {fileID: 1362974500925719380}
+  - component: {fileID: 1194621372172997411}
+  - component: {fileID: 1906391680413009653}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -391,7 +392,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d45c37042366b4387aac62fe800fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <NameHologramAnchorPoint>k__BackingField: {fileID: 748132978935063228}
+  Name:
+    m_InternalValue:
+      utf8LengthInBytes: 0
+      bytes:
+        offset0000:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0016:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0032:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        byte0048: 0
+        byte0049: 0
+        byte0050: 0
+        byte0051: 0
+        byte0052: 0
+        byte0053: 0
+        byte0054: 0
+        byte0055: 0
+        byte0056: 0
+        byte0057: 0
+        byte0058: 0
+        byte0059: 0
+        byte0060: 0
+        byte0061: 0
+--- !u!114 &1362974500925719380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711495077746049214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19500ceb0a079940b1ac6717e14cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ViewTransform>k__BackingField: {fileID: 178641681779997442}
 --- !u!114 &1194621372172997411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +492,7 @@ MonoBehaviour:
   <runSpeed>k__BackingField: 4
   <jumpForce>k__BackingField: 1
   <flySpeed>k__BackingField: 4
---- !u!114 &1362974500925719380
+--- !u!114 &1906391680413009653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -419,7 +501,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8711495077746049214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b19500ceb0a079940b1ac6717e14cf00, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dcfefc4ebff39a44b9882dc1cddc043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ViewTransform>k__BackingField: {fileID: 178641681779997442}
+  <NameHologramAnchorPoint>k__BackingField: {fileID: 748132978935063228}
