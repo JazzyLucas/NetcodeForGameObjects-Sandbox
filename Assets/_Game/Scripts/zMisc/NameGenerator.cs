@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class NameGenerator
 {
-    public static void GenerateFirstName()
+    public static string GenerateFirstName()
     {
         string filePath = Path.Combine(Application.dataPath, "_Game", "Imports", "first-names.txt");
 
@@ -20,6 +20,7 @@ public static class NameGenerator
             {
                 int randomIndex = Random.Range(0, names.Count);
                 string randomName = names[randomIndex];
+                return randomName;
 
                 Debug.Log("Randomly selected name: " + randomName);
             }
@@ -32,5 +33,6 @@ public static class NameGenerator
         {
             Debug.LogError("File not found: " + filePath);
         }
+        return null;
     }
 }
