@@ -14,17 +14,13 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using L = JazzyLucas.Core.Utils.Logger;
 
-public class RelayManager : Singleton<RelayManager>
+public static class RelayUtils
 {
     private const string JOINCODE_FILE_NAME = "JoinCode.txt";
     
-    private UnityTransport UnityTransport => NetworkManager.Singleton.GetComponent<UnityTransport>();
+    private static UnityTransport UnityTransport => NetworkManager.Singleton.GetComponent<UnityTransport>();
 
-    protected override void Init()
-    {
-    }
-
-    public async Task<string> StartHostWithRelay(int maxConnections = 5)
+    public static async Task<string> StartHostWithRelay(int maxConnections = 5)
     {
         L.Log("Starting host with Relay...");
         
@@ -51,7 +47,7 @@ public class RelayManager : Singleton<RelayManager>
         return null;
     }
 
-    public async Task<bool> StartClientWithRelay()
+    public static async Task<bool> StartClientWithRelay()
     {
         L.Log("Starting client with Relay...");
         
@@ -81,7 +77,7 @@ public class RelayManager : Singleton<RelayManager>
     }
 
     // ReSharper disable once MemberCanBeMadeStatic.Local
-    private async Task HandleSignOn()
+    private static async Task HandleSignOn()
     {
         if (!AuthenticationService.Instance.IsSignedIn)
         {

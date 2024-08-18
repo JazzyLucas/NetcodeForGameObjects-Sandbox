@@ -10,12 +10,15 @@ public class HologramsManager : Manager
     protected override Container BaseContainer => Container;
 
     [field: SerializeField] public Canvas Canvas { get; private set; }
+    [field: Header("(Camera can be retrieved from Camera.main)")]
     [field: SerializeField] public Camera MainCamera { get; private set; }
     
     protected override void Init()
     {
-        
-        
+        Debug.Log("Hello2");
+        MainCamera ??= Camera.main;
+        Debug.Log("Hello");
+
         // TODO: create a pool of Holograms and use those
     }
 

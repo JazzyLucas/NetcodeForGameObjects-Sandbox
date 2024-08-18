@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class DebugButtonsNetworking : MonoBehaviour 
+public class NetworkDebugButtons : MonoBehaviour 
 {
     private void OnGUI() 
     {
@@ -12,7 +12,7 @@ public class DebugButtonsNetworking : MonoBehaviour
         {
             if (GUILayout.Button("Host"))
             {
-                _ = RelayManager.Instance.StartHostWithRelay();
+                _ = RelayUtils.StartHostWithRelay();
                 //NetworkManager.Singleton.StartHost();
             }
 
@@ -25,7 +25,7 @@ public class DebugButtonsNetworking : MonoBehaviour
 
             if (GUILayout.Button("Client"))
             {
-                _ = RelayManager.Instance.StartClientWithRelay();
+                _ = RelayUtils.StartClientWithRelay();
                 //NetworkManager.Singleton.StartClient();
             }
         }
