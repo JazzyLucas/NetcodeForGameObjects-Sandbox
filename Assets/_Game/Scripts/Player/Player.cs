@@ -46,11 +46,6 @@ public class Player : NetworkBehaviour
         hologramsController.Init(Name);
     }
 
-    private void LateUpdate()
-    {
-        
-    }
-
     #region Back and Forth RPC Example
     [Rpc(SendTo.ClientsAndHost)]
     private void TestClientRpc(int value, ulong sourceNetworkObjectId)

@@ -125,7 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab97f75cf475c649a2bb10972f852d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Transform>k__BackingField: {fileID: 3871936753921637794}
+  scaleFactor: 10
+  minScale: 1
+  maxScale: 10
   <Text>k__BackingField: {fileID: 501643598029947015}
   <TextBackground>k__BackingField: {fileID: 113662305033922411}
 --- !u!1 &8100152497122955752

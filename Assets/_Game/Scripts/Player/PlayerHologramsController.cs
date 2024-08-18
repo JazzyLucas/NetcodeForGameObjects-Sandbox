@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerHologramsController : MonoBehaviour
 {
     private HologramsContainer hologramsContainer => CoreManager.Instance.GetContainer(typeof(HologramsContainer)) as HologramsContainer;
-    private HologramsManager hologramsManager => this.hologramsContainer.Manager;
+    private HologramsManager hologramsManager => hologramsContainer.Manager;
 
     [field: SerializeField] public Transform NameHologramAnchorPoint { get; private set; }
     
