@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class PlayerHologramsController : MonoBehaviour
 {
-    private HologramsContainer hologramsContainer => CoreManager.Instance.GetContainer(typeof(HologramsContainer)) as HologramsContainer;
-    private HologramsManager hologramsManager => hologramsContainer.Manager;
+    private HologramsManager hologramsManager => (HologramsManager)HologramsManager.Instance;
+    private HologramsContainer hologramsContainer => hologramsManager.Container;
 
     [field: SerializeField] public Transform NameHologramAnchorPoint { get; private set; }
     

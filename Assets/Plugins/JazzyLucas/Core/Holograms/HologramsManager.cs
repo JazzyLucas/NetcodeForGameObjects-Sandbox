@@ -4,20 +4,16 @@ using System.Collections.Generic;
 using JazzyLucas.Core;
 using UnityEngine;
 
-public class HologramsManager : Manager
+public class HologramsManager : Manager<HologramsContainer>
 {
-    [field: SerializeField] public HologramsContainer Container { get; private set; }
-    protected override Container BaseContainer => Container;
-
     [field: SerializeField] public Canvas Canvas { get; private set; }
     [field: Header("(Camera can be retrieved from Camera.main)")]
     [field: SerializeField] public Camera MainCamera { get; private set; }
-    
-    protected override void Init()
+
+    public override void Init()
     {
-        Debug.Log("Hello2");
-        MainCamera ??= Camera.main;
-        Debug.Log("Hello");
+        if (!MainCamera)
+            MainCamera = Camera.main;
 
         // TODO: create a pool of Holograms and use those
     }
